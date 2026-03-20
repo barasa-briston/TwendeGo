@@ -70,13 +70,16 @@ class CheckoutProgressIndicator extends StatelessWidget {
           ),
         ),
         if (!isNarrow) ...[
-          const SizedBox(width: 12),
-          Text(
-            title,
-            style: TextStyle(
-              color: isActive ? AppColors.textPrimary : AppColors.textSecondary,
-              fontWeight: isActive ? FontWeight.w900 : FontWeight.bold,
-              fontSize: 14,
+          const SizedBox(width: 8),
+          Flexible(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: isActive ? AppColors.textPrimary : AppColors.textSecondary,
+                fontWeight: isActive ? FontWeight.w900 : FontWeight.bold,
+                fontSize: 13,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],

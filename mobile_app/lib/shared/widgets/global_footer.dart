@@ -82,30 +82,48 @@ class GlobalFooter extends StatelessWidget {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
         ),
         const SizedBox(height: 20),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _destinationLink(context, 'Nairobi - Mombasa'),
-                  _destinationLink(context, 'Nairobi - Kampala'),
-                  _destinationLink(context, 'Nairobi - Daresalaam'),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _destinationLink(context, 'Mombasa - Daresalaam'),
-                  _destinationLink(context, 'Mombasa - Malaba'),
-                  _destinationLink(context, 'Mombasa - Kitale'),
-                ],
-              ),
-            ),
-          ],
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final isVerySmall = constraints.maxWidth < 400;
+            return isVerySmall 
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _destinationLink(context, 'Nairobi - Mombasa'),
+                    _destinationLink(context, 'Nairobi - Kampala'),
+                    _destinationLink(context, 'Nairobi - Daresalaam'),
+                    _destinationLink(context, 'Mombasa - Daresalaam'),
+                    _destinationLink(context, 'Mombasa - Malaba'),
+                    _destinationLink(context, 'Mombasa - Kitale'),
+                  ],
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _destinationLink(context, 'Nairobi - Mombasa'),
+                          _destinationLink(context, 'Nairobi - Kampala'),
+                          _destinationLink(context, 'Nairobi - Daresalaam'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _destinationLink(context, 'Mombasa - Daresalaam'),
+                          _destinationLink(context, 'Mombasa - Malaba'),
+                          _destinationLink(context, 'Mombasa - Kitale'),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+          }
         ),
       ],
     );

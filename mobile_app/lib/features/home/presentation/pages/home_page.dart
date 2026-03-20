@@ -197,4 +197,5 @@ class _DiscountCampaignBanner extends ConsumerWidget {
         ),
       ),
     );
+  }
 }
