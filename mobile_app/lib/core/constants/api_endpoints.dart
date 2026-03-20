@@ -1,6 +1,5 @@
 class ApiEndpoints {
-  static const String baseUrl = 'http://172.20.136.115:8080/api'; // Computer's Local IP (Use for Mobile)
-  // static const String baseUrl = 'http://localhost:8080/api'; // Use for Web/Chrome
+  static const String baseUrl = 'http://localhost:8080/api';
   
   // Auth
   static const String register = '/auth/register/';

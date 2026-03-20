@@ -187,8 +187,10 @@ class _SearchResultsPageState extends ConsumerState<SearchResultsPage> {
                                 ),
                               ],
                             ),
+                        ],
                       ),
                     ),
+                  ),
         );
       },
     );
