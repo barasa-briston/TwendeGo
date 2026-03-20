@@ -150,7 +150,7 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isMobile = constraints.maxWidth < 900;
+        final isMobile = constraints.maxWidth < 1000;
 
         return Scaffold(
           backgroundColor: AppColors.background,
@@ -324,7 +324,7 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Total to Pay', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              const Expanded(child: Text('Total to Pay', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
               Text(
                 'KES ${NumberFormat('#,##0').format(subtotal)}',
                 style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Color(0xFF4CAF50)),

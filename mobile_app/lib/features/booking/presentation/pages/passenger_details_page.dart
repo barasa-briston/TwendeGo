@@ -61,7 +61,7 @@ class _PassengerDetailsPageState extends ConsumerState<PassengerDetailsPage> {
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
-                final isMobile = constraints.maxWidth < 900;
+                final isMobile = constraints.maxWidth < 1000;
                 
                 return SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
@@ -302,7 +302,7 @@ class _PassengerDetailsPageState extends ConsumerState<PassengerDetailsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Selected Seats', style: TextStyle(color: AppColors.textSecondary)),
+              const Expanded(child: Text('Selected Seats', style: TextStyle(color: AppColors.textSecondary))),
               Text('${widget.seatIds.length} Seat(s)', style: const TextStyle(fontWeight: FontWeight.bold)),
             ],
           ),
@@ -328,7 +328,7 @@ class _PassengerDetailsPageState extends ConsumerState<PassengerDetailsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Total Fare', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              const Expanded(child: Text('Total Fare', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
               Text(
                 'KES ${NumberFormat('#,##0').format(subtotal)}',
                 style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: AppColors.primary),

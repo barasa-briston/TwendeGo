@@ -110,6 +110,8 @@ class HomePage extends ConsumerWidget {
 class _DiscountCampaignBanner extends ConsumerWidget {
   const _DiscountCampaignBanner();
 
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final bool isNarrow = MediaQuery.of(context).size.width < 600;
 
     return ClipRRect(

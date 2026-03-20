@@ -10,7 +10,7 @@ class CheckoutProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isNarrow = constraints.maxWidth < 700;
+        final isNarrow = constraints.maxWidth < 850;
         
         return Container(
           width: double.infinity,
