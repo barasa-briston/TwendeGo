@@ -110,56 +110,89 @@ class HomePage extends ConsumerWidget {
 class _DiscountCampaignBanner extends ConsumerWidget {
   const _DiscountCampaignBanner();
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
+    final bool isNarrow = MediaQuery.of(context).size.width < 600;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
         child: Container(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(isNarrow ? 16 : 24),
           decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.5), blurRadius: 20)],
             border: Border.all(color: Colors.white.withOpacity(0.5), width: 1.0),
           ),
-          child: Row(
-            children: [
-              const Icon(Icons.local_offer, color: Colors.black, size: 40),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Discount Campaign!',
-                      style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+          child: isNarrow 
+            ? Column(
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.local_offer, color: Colors.black, size: 32),
+                      const SizedBox(width: 12),
+                      const Expanded(
+                        child: Text(
+                          'Discount Campaign!',
+                          style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Get 10% off on your first booking.',
+                    style: TextStyle(color: Colors.black87, fontSize: 13),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      ref.read(tripProvider.notifier).searchSchedules();
+                      context.go('/search');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(double.infinity, 48),
                     ),
-                    Text(
-                      'Get 10% off on your first booking.',
-                      style: TextStyle(color: Colors.black87, fontSize: 13),
+                    child: const Text('Book Now', style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                ],
+              )
+            : Row(
+                children: [
+                  const Icon(Icons.local_offer, color: Colors.black, size: 40),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Discount Campaign!',
+                          style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'Get 10% off on your first booking.',
+                          style: TextStyle(color: Colors.black87, fontSize: 13),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      ref.read(tripProvider.notifier).searchSchedules();
+                      context.go('/search');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(100, 40),
+                    ),
+                    child: const Text('Book Now', style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Trigger search
-                  ref.read(tripProvider.notifier).searchSchedules();
-                  context.go('/search');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(100, 40),
-                ),
-                child: const Text('Book Now', style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-            ],
-          ),
         ),
       ),
     );
-  }
 }

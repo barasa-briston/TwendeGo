@@ -59,134 +59,47 @@ class _PassengerDetailsPageState extends ConsumerState<PassengerDetailsPage> {
         children: [
           const CheckoutProgressIndicator(currentStep: 2),
           Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
-              child: Center(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 1200),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Left Section: Form
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Passenger Information',
-                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: -0.5),
-                            ),
-                            const Text(
-                              'Please enter the details for the person traveling.',
-                              style: TextStyle(color: AppColors.textSecondary),
-                            ),
-                            const SizedBox(height: 32),
-                            Container(
-                              padding: const EdgeInsets.all(32),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(color: AppColors.divider),
-                                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10)],
-                              ),
-                              child: Form(
-                                key: _formKey,
-                                child: Column(
-                                  children: [
-                                    _buildFormField(
-                                      'Full Name as per ID', 
-                                      _nameController, 
-                                      Icons.person_outline, 
-                                      'Enter full name',
-                                    ),
-                                    const SizedBox(height: 24),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: _buildFormField(
-                                            'Phone Number', 
-                                            _phoneController, 
-                                            Icons.phone_outlined, 
-                                            '+254...',
-                                            keyboardType: TextInputType.phone,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 24),
-                                        Expanded(
-                                          child: _buildFormField(
-                                            'ID / Passport Number', 
-                                            _idNumberController, 
-                                            Icons.badge_outlined, 
-                                            'Number...',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 32),
-                                    const Divider(),
-                                    const SizedBox(height: 32),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.info_outline, size: 18, color: AppColors.textSecondary),
-                                        const SizedBox(width: 8),
-                                        const Expanded(
-                                          child: Text(
-                                            'Ensure details match your identification document for a smooth boarding process.',
-                                            style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 40),
-                            SizedBox(
-                              width: 300,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    context.push(
-                                      Uri(
-                                        path: '/payment',
-                                        queryParameters: {
-                                          'scheduleId': widget.scheduleId,
-                                          'seatIds': widget.seatIds.join(','),
-                                          'passengerName': _nameController.text,
-                                          'passengerPhone': _phoneController.text,
-                                          'totalAmount': subtotal.toString(),
-                                        },
-                                      ).toString(),
-                                    );
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.primary,
-                                  foregroundColor: Colors.black,
-                                  padding: const EdgeInsets.symmetric(vertical: 20),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                ),
-                                child: const Text(
-                                  'CONTINUE TO PAYMENT',
-                                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, letterSpacing: 1.0),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 48),
-                      // Right Section: Summary
-                      Expanded(
-                        flex: 2,
-                        child: _buildSummaryCard(schedule, subtotal, seatState),
-                      ),
-                    ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isMobile = constraints.maxWidth < 900;
+                
+                return SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isMobile ? 16 : 40, 
+                    vertical: 24,
                   ),
-                ),
-              ),
+                  child: Center(
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 1200),
+                      child: isMobile
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildPassengerForm(subtotal),
+                                const SizedBox(height: 32),
+                                _buildSummaryCard(schedule, subtotal, seatState),
+                              ],
+                            )
+                          : Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Left Section: Form
+                                Expanded(
+                                  flex: 3,
+                                  child: _buildPassengerForm(subtotal),
+                                ),
+                                const SizedBox(width: 48),
+                                // Right Section: Summary
+                                Expanded(
+                                  flex: 2,
+                                  child: _buildSummaryCard(schedule, subtotal, seatState),
+                                ),
+                              ],
+                            ),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],

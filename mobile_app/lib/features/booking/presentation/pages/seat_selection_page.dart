@@ -64,7 +64,7 @@ class SeatSelectionPage extends ConsumerWidget {
           else
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(40),
+                padding: EdgeInsets.all(MediaQuery.of(context).size.width < 600 ? 16 : 40),
                 child: _buildSeatGrid(context, ref, schedule, state),
               ),
             ),
@@ -264,9 +264,11 @@ class SeatSelectionPage extends ConsumerWidget {
       }
     }
     
+    final bool isSmall = MediaQuery.of(context).size.width < 600;
+    
     return Container(
       color: AppColors.background,
-      padding: const EdgeInsets.all(40),
+      padding: EdgeInsets.all(isSmall ? 16 : 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

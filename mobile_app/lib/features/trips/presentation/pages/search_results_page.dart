@@ -111,7 +111,7 @@ class _SearchResultsPageState extends ConsumerState<SearchResultsPage> {
                               children: [
                                 Text(
                                   '${widget.origin ?? "Any"} to ${widget.destination ?? "Any"}',
-                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
