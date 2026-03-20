@@ -94,7 +94,14 @@ class _SearchResultsPageState extends ConsumerState<SearchResultsPage> {
               ? const Center(child: CircularProgressIndicator())
               : tripState.error != null
                   ? Center(child: Text(tripState.error!))
-                  : SingleChildScrollView(
+                  : RefreshIndicator(
+                      onRefresh: () => ref.read(tripProvider.notifier).searchSchedules(
+                        origin: widget.origin,
+                        destination: widget.destination,
+                        date: widget.date,
+                      ),
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
                       padding: EdgeInsets.symmetric(
                         horizontal: isMobile ? 16 : 40, 
                         vertical: 24
@@ -180,7 +187,6 @@ class _SearchResultsPageState extends ConsumerState<SearchResultsPage> {
                                 ),
                               ],
                             ),
-                        ],
                       ),
                     ),
         );

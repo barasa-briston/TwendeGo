@@ -14,20 +14,38 @@ class MyBookingsPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('My Bookings')),
-      body: bookingState.isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : bookingState.error != null
-              ? Center(child: Text(bookingState.error!))
-              : bookingState.bookings.isEmpty
-                  ? const Center(child: Text('You have no bookings yet.'))
-                  : ListView.builder(
-                      padding: const EdgeInsets.all(16),
-                      itemCount: bookingState.bookings.length,
-                      itemBuilder: (context, index) {
-                        final booking = bookingState.bookings[index];
-                        return _BookingCard(booking: booking);
-                      },
-                    ),
+      body: RefreshIndicator(
+        onRefresh: () => ref.read(bookingProvider.notifier).fetchMyBookings(),
+        child: bookingState.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : bookingState.error != null
+                ? ListView( // Use ListView to make it scrollable/refreshable even with error
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        child: Center(child: Text(bookingState.error!)),
+                      ),
+                    ],
+                  )
+                : bookingState.bookings.isEmpty
+                    ? ListView(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            child: const Center(child: Text('You have no bookings yet.')),
+                          ),
+                        ],
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemCount: bookingState.bookings.length,
+                        itemBuilder: (context, index) {
+                          final booking = bookingState.bookings[index];
+                          return _BookingCard(booking: booking);
+                        },
+                      ),
+      ),
     );
   }
 }
