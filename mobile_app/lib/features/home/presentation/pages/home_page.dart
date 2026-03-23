@@ -10,7 +10,7 @@ import '../widgets/advantages_section.dart';
 import '../widgets/popular_routes_section.dart';
 import '../widgets/info_carousel_banner.dart';
 import '../../../../shared/widgets/global_footer.dart';
-import '../../auth/presentation/providers/auth_provider.dart';
+import '../../../auth/presentation/providers/auth_provider.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
