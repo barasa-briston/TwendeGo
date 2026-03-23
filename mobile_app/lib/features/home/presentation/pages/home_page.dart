@@ -10,6 +10,7 @@ import '../widgets/advantages_section.dart';
 import '../widgets/popular_routes_section.dart';
 import '../widgets/info_carousel_banner.dart';
 import '../../../../shared/widgets/global_footer.dart';
+import '../../auth/presentation/providers/auth_provider.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -85,7 +86,7 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: ref.watch(authProvider).user != null ? BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: 0,
         onTap: (index) {
@@ -102,7 +103,7 @@ class HomePage extends ConsumerWidget {
           BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
-      ),
+      ) : null,
     );
   }
 }
